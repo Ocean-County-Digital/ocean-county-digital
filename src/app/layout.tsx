@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import "../styles/bootstrap-grid.min.css";
 import "../styles/globals.css";
 import Navbar from "../components/Layout/Navbar";
 
