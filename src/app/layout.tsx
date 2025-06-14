@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Barlow, Roboto } from "next/font/google";
 import "../styles/globals.css";
-import Navbar from "../components/Layout/Navbar";
 
 const barlow = Barlow({
   variable: "--font-barlow",
