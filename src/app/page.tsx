@@ -89,6 +89,173 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Contact Us Section */}
+      <section className="contact-section" id="contact">
+        <div className="container">
+          <h2 className="section-title">Contact Us</h2>
+          <form className="contact-form">
+            <div className="form-row">
+              <div className="form-group">
+                <label htmlFor="name">Name *</label>
+                <input type="text" id="name" name="name" required />
+              </div>
+              <div className="form-group">
+                <label htmlFor="email">Email *</label>
+                <input type="email" id="email" name="email" required />
+              </div>
+            </div>
+            <div className="form-row">
+              <div className="form-group">
+                <label htmlFor="company">Company</label>
+                <input type="text" id="company" name="company" />
+              </div>
+              <div className="form-group">
+                <label htmlFor="phone">Phone Number *</label>
+                <input type="tel" id="phone" name="phone" required />
+              </div>
+            </div>
+            <div className="form-group">
+              <label htmlFor="message">Message *</label>
+              <textarea id="message" name="message" rows={6} required></textarea>
+            </div>
+            <button type="submit" className="submit-btn">Send Message</button>
+          </form>
+        </div>
+      </section>
+
+      {/* Our Team Section */}
+      <section className="team-section">
+        <div className="container">
+          <h2 className="section-title">Our Team</h2>
+          <div className="team-grid">
+            <div className="team-member">
+              <Image
+                src="/assets/team1.jpg"
+                alt="Team Member 1"
+                width={200}
+                height={200}
+              />
+              <h3>John Smith</h3>
+              <p>CEO & Founder</p>
+            </div>
+            <div className="team-member">
+              <Image
+                src="/assets/team2.jpg"
+                alt="Team Member 2"
+                width={200}
+                height={200}
+              />
+              <h3>Sarah Johnson</h3>
+              <p>Lead Developer</p>
+            </div>
+            <div className="team-member">
+              <Image
+                src="/assets/team3.jpg"
+                alt="Team Member 3"
+                width={200}
+                height={200}
+              />
+              <h3>Mike Davis</h3>
+              <p>UI/UX Designer</p>
+            </div>
+            <div className="team-member">
+              <Image
+                src="/assets/team4.jpg"
+                alt="Team Member 4"
+                width={200}
+                height={200}
+              />
+              <h3>Emily Wilson</h3>
+              <p>Project Manager</p>
+            </div>
+            <div className="team-member">
+              <Image
+                src="/assets/team5.jpg"
+                alt="Team Member 5"
+                width={200}
+                height={200}
+              />
+              <h3>David Brown</h3>
+              <p>Full Stack Developer</p>
+            </div>
+            <div className="team-member">
+              <Image
+                src="/assets/team6.jpg"
+                alt="Team Member 6"
+                width={200}
+                height={200}
+              />
+              <h3>Lisa Martinez</h3>
+              <p>Marketing Specialist</p>
+            </div>
+            <div className="team-member">
+              <Image
+                src="/assets/team7.jpg"
+                alt="Team Member 7"
+                width={200}
+                height={200}
+              />
+              <h3>Chris Anderson</h3>
+              <p>DevOps Engineer</p>
+            </div>
+            <div className="team-member">
+              <Image
+                src="/assets/team8.jpg"
+                alt="Team Member 8"
+                width={200}
+                height={200}
+              />
+              <h3>Anna Taylor</h3>
+              <p>Quality Assurance</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="footer">
+        <div className="container">
+          <div className="footer-content">
+            <div className="footer-column">
+              <div className="footer-logo">
+                <Image
+                  src="/assets/logo_placeholder.svg"
+                  alt="Ocean County Digital"
+                  width={48}
+                  height={48}
+                />
+                <span>Ocean County Digital</span>
+              </div>
+              <p>Your digital transformation partner. We build modern, scalable web solutions that drive business growth and innovation.</p>
+            </div>
+            <div className="footer-column">
+              <h4>Quick Links</h4>
+              <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+              </ul>
+            </div>
+            <div className="footer-column">
+              <h4>Contact Us</h4>
+              <div className="contact-info">
+                <p><strong>Phone:</strong> (732) 555-0123</p>
+                <p><strong>Email:</strong> info@oceancountydigital.com</p>
+              </div>
+            </div>
+            <div className="footer-column">
+              <h4>Get in Touch</h4>
+              <form className="newsletter-form">
+                <input type="email" placeholder="Your email address" />
+                <button type="submit">Send</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </footer>
     </>
   );
 }
