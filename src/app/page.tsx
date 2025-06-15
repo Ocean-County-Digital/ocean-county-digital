@@ -117,9 +117,16 @@ export default function Home() {
             </div>
             <div className="form-group">
               <label htmlFor="message">Message *</label>
-              <textarea id="message" name="message" rows={6} required></textarea>
+              <textarea
+                id="message"
+                name="message"
+                rows={6}
+                required
+              ></textarea>
             </div>
-            <button type="submit" className="submit-btn">Send Message</button>
+            <button type="submit" className="submit-btn">
+              Send Message
+            </button>
           </form>
         </div>
       </section>
@@ -227,23 +234,40 @@ export default function Home() {
                 />
                 <span>Ocean County Digital</span>
               </div>
-              <p>Your digital transformation partner. We build modern, scalable web solutions that drive business growth and innovation.</p>
+              <p>
+                Your digital transformation partner. We build modern, scalable
+                web solutions that drive business growth and innovation.
+              </p>
             </div>
             <div className="footer-column">
               <h4>Quick Links</h4>
               <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li>
+                  <a href="#home">Home</a>
+                </li>
+                <li>
+                  <a href="#about">About</a>
+                </li>
+                <li>
+                  <a href="#services">Services</a>
+                </li>
+                <li>
+                  <a href="#projects">Projects</a>
+                </li>
+                <li>
+                  <a href="#contact">Contact</a>
+                </li>
               </ul>
             </div>
             <div className="footer-column">
               <h4>Contact Us</h4>
               <div className="contact-info">
-                <p><strong>Phone:</strong> (732) 555-0123</p>
-                <p><strong>Email:</strong> info@oceancountydigital.com</p>
+                <p>
+                  <strong>Phone:</strong> (732) 555-0123
+                </p>
+                <p>
+                  <strong>Email:</strong> info@oceancountydigital.com
+                </p>
               </div>
             </div>
             <div className="footer-column">
