@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { FaBars, FaTimes } from "react-icons/fa";
-import styles from "../styles/Navbar.module.css";
+import styles from "../styles/Navigation.module.css";
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -77,7 +77,11 @@ export default function Navigation() {
         onKeyDown={handleKeyDown}
       >
         <div className={styles.container}>
-          <a href="#" className={styles.logo} aria-label="Ocean County Digital - Home">
+          <a
+            href="#"
+            className={styles.logo}
+            aria-label="Ocean County Digital - Home"
+          >
             <Image
               src="/assets/logo_placeholder.svg"
               alt="Ocean County Digital Logo"
@@ -86,7 +90,10 @@ export default function Navigation() {
             />
           </a>
 
-          <ul className={`${styles.navLinks} ${styles.desktopNav}`} role="menubar">
+          <ul
+            className={`${styles.navLinks} ${styles.desktopNav}`}
+            role="menubar"
+          >
             <li role="none">
               <a href="#home" role="menuitem">
                 Home
