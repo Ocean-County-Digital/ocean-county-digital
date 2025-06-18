@@ -39,19 +39,52 @@ body {
   font-family:
     var(--font-family-barlow), var(--font-family-roboto), "Inter", Arial,
     sans-serif;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  position: relative;
+}
+*:focus:not(.focus-visible) {
+  outline: #000 solid 2px;
+}
+/* Optional: Customize .focus-visible */
+.focus-visible {
+  outline: #000 solid 2px;
 }
 
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 90%;
+  max-width: 1400px;
+  margin: auto;
+  @media (max-width: 1440px) {
+    max-width: 1280px;
+  }
+}
+.cta-btn-primary {
+  background: var(--theme-color);
+  color: #fff;
+  border: none;
+  border-radius: 2rem;
+  padding: 0.75rem 3rem;
+  font-size: 1rem;
+  font-family: var(--font-family-roboto);
+  font-weight: 500;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-decoration: none;
+}
 /* Sticky Navigation Bar */
 .sticky-navbar {
   position: sticky;
+  padding: 1rem 0rem;
   top: 0;
   z-index: 100;
   background: var(--white-color);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: var(--space-sm) 0;
+  width: 100%;
 }
 .sticky-navbar .logo {
   display: flex;
@@ -64,34 +97,21 @@ body {
 }
 .sticky-navbar .nav-links {
   display: flex;
-  gap: var(--space-lg);
-  flex: 1;
+  gap: 1rem;
   justify-content: center;
 }
 .sticky-navbar .nav-links a {
   color: var(--title-color);
   text-decoration: none;
+  font-size: 1rem;
+  text-transform: uppercase;
+  padding: 0.845rem 1rem;
   font-weight: 500;
   font-family: var(--font-family-roboto);
   transition: color 0.2s;
 }
 .sticky-navbar .nav-links a:hover {
   color: var(--theme-color);
-}
-.sticky-navbar .cta-btn {
-  background: var(--theme-color);
-  color: #fff;
-  border: none;
-  border-radius: var(--radius-md, 6px);
-  padding: 0.5rem 1.5rem;
-  font-size: 1rem;
-  font-family: var(--font-family-barlow);
-  font-weight: 700;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-.sticky-navbar .cta-btn:hover {
-  background: #2546a8;
 }
 
 /* Hero Banner */
@@ -128,16 +148,6 @@ body {
 .hero-content p {
   font-size: 1.25rem;
   margin-bottom: var(--space-md);
-}
-.hero-content a {
-  background: var(--theme-color);
-  color: #fff;
-  padding: 0.75rem 2rem;
-  border-radius: var(--radius-md, 6px);
-  text-decoration: none;
-  font-weight: 700;
-  font-family: var(--font-family-barlow);
-  transition: background 0.2s;
 }
 .hero-content a:hover {
   background: #2546a8;
@@ -190,21 +200,6 @@ body {
   font-size: 1rem;
   margin-bottom: var(--space-md);
   color: var(--body-color);
-}
-.about-card button {
-  background: var(--theme-color);
-  color: #fff;
-  border: none;
-  border-radius: var(--radius-md, 6px);
-  padding: 0.5rem 1.5rem;
-  font-size: 1rem;
-  font-family: var(--font-family-barlow);
-  font-weight: 700;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-.about-card button:hover {
-  background: #2546a8;
 }
 
 /* Contact Us Section */
@@ -270,25 +265,6 @@ body {
   min-height: 120px;
 }
 
-.submit-btn {
-  background: var(--theme-color);
-  color: var(--white-color);
-  border: none;
-  border-radius: 4px;
-  padding: var(--space-md) var(--space-xl);
-  font-size: 1rem;
-  font-family: var(--font-family-barlow);
-  font-weight: 700;
-  cursor: pointer;
-  transition: background 0.3s;
-  display: block;
-  margin: 0 auto;
-}
-
-.submit-btn:hover {
-  background: #2546a8;
-}
-
 /* Team Section */
 .team-section {
   padding: var(--space-xl) 0;
@@ -310,7 +286,9 @@ body {
   padding: var(--space-lg);
   text-align: center;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  transition: transform 0.3s, box-shadow 0.3s;
+  transition:
+    transform 0.3s,
+    box-shadow 0.3s;
 }
 
 .team-member:hover {
@@ -432,6 +410,12 @@ body {
 
 .newsletter-form button:hover {
   background: #2546a8;
+}
+
+@media (max-width: 1200px) {
+  .sticky-navbar .cta-btn-primary {
+    display: none;
+  }
 }
 
 @media (max-width: 900px) {

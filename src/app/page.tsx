@@ -4,23 +4,25 @@ export default function Home() {
   return (
     <>
       {/* Sticky Navigation */}
-      <nav className="sticky-navbar container">
-        <a href="#" className="logo">
-          <Image
-            src="/assets/logo_placeholder.svg"
-            alt="Logo"
-            width={48}
-            height={48}
-          />
-        </a>
-        <div className="nav-links">
-          <a href="#home">Home</a>
-          <a href="#about">About</a>
-          <a href="#services">Services</a>
-          <a href="#projects">Projects</a>
-          <a href="#contact">Contact</a>
+      <nav className="sticky-navbar">
+        <div className="container">
+          <a href="#" className="logo">
+            <Image
+              src="/assets/logo_placeholder.svg"
+              alt="Logo"
+              width={194}
+              height={46}
+            />
+          </a>
+          <div className="nav-links">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#services">Services</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+          </div>
+          <button className="cta-btn-primary">Get Started</button>
         </div>
-        <button className="cta-btn">Get Started</button>
       </nav>
 
       {/* Hero Banner */}
@@ -37,7 +39,9 @@ export default function Home() {
             Your digital transformation partner. We build modern, scalable web
             solutions for your business.
           </p>
-          <a href="#contact">Contact Us</a>
+          <a className="cta-btn-primary" href="#contact">
+            Contact Us
+          </a>
         </div>
       </section>
 
@@ -57,7 +61,9 @@ export default function Home() {
               Our team consists of experienced professionals dedicated to
               delivering top-notch solutions.
             </p>
-            <button>Learn More</button>
+            <a href="#" className="cta-btn-primary">
+              Learn More
+            </a>
           </div>
           <div className="about-card">
             <Image
@@ -71,7 +77,9 @@ export default function Home() {
               We use the latest technologies to ensure your business stays ahead
               of the curve.
             </p>
-            <button>Learn More</button>
+            <a href="#" className="cta-btn-primary">
+              Learn More
+            </a>
           </div>
           <div className="about-card">
             <Image
@@ -85,7 +93,9 @@ export default function Home() {
               Your satisfaction is our priority. We work closely with you to
               achieve your goals.
             </p>
-            <button>Learn More</button>
+            <a href="#" className="cta-btn-primary">
+              Learn More
+            </a>
           </div>
         </div>
       </section>
@@ -124,7 +134,7 @@ export default function Home() {
                 required
               ></textarea>
             </div>
-            <button type="submit" className="submit-btn">
+            <button type="submit" className="cta-btn-primary">
               Send Message
             </button>
           </form>
