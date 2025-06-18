@@ -1,295 +1,499 @@
+"use client";
+
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
+import {
+  FaArrowRight,
+  FaPhone,
+  FaEnvelope,
+  FaMapMarkerAlt,
+  FaBars,
+  FaTimes,
+} from "react-icons/fa";
 
 export default function Home() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const hamburgerRef = useRef<HTMLButtonElement>(null);
+  const firstMenuItemRef = useRef<HTMLAnchorElement>(null);
+  const lastMenuItemRef = useRef<HTMLButtonElement>(null);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+    // Return focus to hamburger button when menu closes
+    setTimeout(() => {
+      hamburgerRef.current?.focus();
+    }, 100);
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === "Escape" && isMenuOpen) {
+      closeMenu();
+    }
+  };
+
+  const handleMenuKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === "Tab") {
+      // Focus trap within mobile menu
+      const activeElement = document.activeElement;
+      if (event.shiftKey) {
+        // Shift + Tab
+        if (activeElement === firstMenuItemRef.current) {
+          event.preventDefault();
+          lastMenuItemRef.current?.focus();
+        }
+      } else {
+        // Tab
+        if (activeElement === lastMenuItemRef.current) {
+          event.preventDefault();
+          firstMenuItemRef.current?.focus();
+        }
+      }
+    }
+  };
+
+  // Focus management when menu opens
+  useEffect(() => {
+    if (isMenuOpen) {
+      // Focus first menu item when menu opens
+      setTimeout(() => {
+        firstMenuItemRef.current?.focus();
+      }, 100);
+    }
+  }, [isMenuOpen]);
+
+  // Prevent body scroll when menu is open
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isMenuOpen]);
   return (
     <>
+      {/* Skip Link for Keyboard Users */}
+      <a href="#main-content" className="skip-link">
+        Skip to main content
+      </a>
+
       {/* Sticky Navigation */}
-      <nav className="sticky-navbar">
+      <nav
+        className="sticky-navbar"
+        role="navigation"
+        aria-label="Main navigation"
+        onKeyDown={handleKeyDown}
+      >
         <div className="container">
-          <a href="#" className="logo">
+          <a href="#" className="logo" aria-label="Ocean County Digital - Home">
             <Image
               src="/assets/logo_placeholder.svg"
-              alt="Logo"
+              alt="Ocean County Digital Logo"
               width={194}
               height={46}
             />
           </a>
-          <div className="nav-links">
-            <a href="#home">Home</a>
-            <a href="#about">About</a>
-            <a href="#services">Services</a>
-            <a href="#projects">Projects</a>
-            <a href="#contact">Contact</a>
+
+          {/* Desktop Navigation */}
+          <div className="nav-links desktop-nav" role="menubar">
+            <a href="#home" role="menuitem">
+              Home
+            </a>
+            <a href="#about" role="menuitem">
+              About
+            </a>
+            <a href="#services" role="menuitem">
+              Services
+            </a>
+            <a href="#projects" role="menuitem">
+              Projects
+            </a>
+            <a href="#contact" role="menuitem">
+              Contact
+            </a>
           </div>
-          <button className="cta-btn-primary">Get Started</button>
+          <button
+            className="cta-btn-primary desktop-nav"
+            aria-label="Get started with our services"
+          >
+            Get Started
+          </button>
+
+          {/* Mobile Hamburger */}
+          <button
+            ref={hamburgerRef}
+            className="mobile-menu-toggle"
+            onClick={toggleMenu}
+            aria-expanded={isMenuOpen}
+            aria-controls="mobile-navigation-menu"
+            aria-label="Toggle mobile menu"
+          >
+            <FaBars aria-hidden="true" />
+            <span className="sr-only">
+              {isMenuOpen ? "Close menu" : "Open menu"}
+            </span>
+          </button>
         </div>
+
+        {/* Mobile Slide-out Menu */}
+        <div
+          id="mobile-navigation-menu"
+          className={`mobile-menu ${isMenuOpen ? "open" : ""}`}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="mobile-menu-title"
+          onKeyDown={handleMenuKeyDown}
+        >
+          <div className="mobile-menu-header">
+            <a
+              href="#"
+              className="logo"
+              aria-label="Ocean County Digital - Home"
+            >
+              <Image
+                src="/assets/logo_placeholder.svg"
+                alt="Ocean County Digital Logo"
+                width={194}
+                height={46}
+              />
+            </a>
+            <button
+              className="mobile-menu-close"
+              onClick={closeMenu}
+              aria-label="Close mobile menu"
+            >
+              <FaTimes aria-hidden="true" />
+            </button>
+          </div>
+          <nav
+            className="mobile-nav-links"
+            role="navigation"
+            aria-label="Mobile navigation"
+          >
+            <h2 id="mobile-menu-title" className="sr-only">
+              Mobile Navigation Menu
+            </h2>
+            <a
+              ref={firstMenuItemRef}
+              href="#home"
+              onClick={closeMenu}
+              role="menuitem"
+            >
+              Home
+            </a>
+            <a href="#about" onClick={closeMenu} role="menuitem">
+              About
+            </a>
+            <a href="#services" onClick={closeMenu} role="menuitem">
+              Services
+            </a>
+            <a href="#projects" onClick={closeMenu} role="menuitem">
+              Projects
+            </a>
+            <a href="#contact" onClick={closeMenu} role="menuitem">
+              Contact
+            </a>
+            <button
+              ref={lastMenuItemRef}
+              className="cta-btn-primary"
+              onClick={closeMenu}
+              aria-label="Get started with our services"
+            >
+              Get Started
+            </button>
+          </nav>
+        </div>
+
+        {/* Mobile Menu Overlay */}
+        {isMenuOpen && (
+          <div
+            className="mobile-menu-overlay"
+            onClick={closeMenu}
+            aria-hidden="true"
+          />
+        )}
       </nav>
 
-      {/* Hero Banner */}
-      <section className="hero-banner">
-        <Image
-          src="/assets/hero-placeholder.jpg"
-          alt="Hero"
-          fill
-          style={{ objectFit: "cover" }}
-        />
-        <div className="hero-content">
-          <h1>Welcome to Ocean County Digital</h1>
-          <p>
-            Your digital transformation partner. We build modern, scalable web
-            solutions for your business.
-          </p>
-          <a className="cta-btn-primary" href="#contact">
-            Contact Us
-          </a>
-        </div>
-      </section>
-
-      {/* About Us Section */}
-      <section className="about-section" id="about">
-        <div className="about-title">About Us</div>
-        <div className="about-cards container">
-          <div className="about-card">
-            <Image
-              src="/assets/about1.jpg"
-              alt="Expert Team"
-              width={80}
-              height={80}
-            />
-            <h3>Expert Team</h3>
+      {/* Main Content Landmark */}
+      <main id="main-content">
+        {/* Hero Banner */}
+        <section className="hero-banner">
+          <Image
+            src="/assets/hero-placeholder.jpg"
+            alt="Hero"
+            fill
+            style={{ objectFit: "cover" }}
+          />
+          <div className="hero-content">
+            <h1>Welcome to Ocean County Digital</h1>
             <p>
-              Our team consists of experienced professionals dedicated to
-              delivering top-notch solutions.
+              Your digital transformation partner. We build modern, scalable web
+              solutions for your business.
             </p>
-            <a href="#" className="cta-btn-primary">
-              Learn More
+            <a className="cta-btn-primary" href="#contact">
+              Contact Us
             </a>
           </div>
-          <div className="about-card">
-            <Image
-              src="/assets/about2.jpg"
-              alt="Modern Solutions"
-              width={80}
-              height={80}
-            />
-            <h3>Modern Solutions</h3>
-            <p>
-              We use the latest technologies to ensure your business stays ahead
-              of the curve.
-            </p>
-            <a href="#" className="cta-btn-primary">
-              Learn More
-            </a>
-          </div>
-          <div className="about-card">
-            <Image
-              src="/assets/about3.jpg"
-              alt="Customer Focus"
-              width={80}
-              height={80}
-            />
-            <h3>Customer Focus</h3>
-            <p>
-              Your satisfaction is our priority. We work closely with you to
-              achieve your goals.
-            </p>
-            <a href="#" className="cta-btn-primary">
-              Learn More
-            </a>
-          </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Contact Us Section */}
-      <section className="contact-section" id="contact">
-        <div className="container">
-          <h2 className="section-title">Contact Us</h2>
-          <form className="contact-form">
-            <div className="form-row">
-              <div className="form-group">
-                <label htmlFor="name">Name *</label>
-                <input type="text" id="name" name="name" required />
-              </div>
-              <div className="form-group">
-                <label htmlFor="email">Email *</label>
-                <input type="email" id="email" name="email" required />
-              </div>
-            </div>
-            <div className="form-row">
-              <div className="form-group">
-                <label htmlFor="company">Company</label>
-                <input type="text" id="company" name="company" />
-              </div>
-              <div className="form-group">
-                <label htmlFor="phone">Phone Number *</label>
-                <input type="tel" id="phone" name="phone" required />
-              </div>
-            </div>
-            <div className="form-group">
-              <label htmlFor="message">Message *</label>
-              <textarea
-                id="message"
-                name="message"
-                rows={6}
-                required
-              ></textarea>
-            </div>
-            <button type="submit" className="cta-btn-primary">
-              Send Message
-            </button>
-          </form>
-        </div>
-      </section>
-
-      {/* Our Team Section */}
-      <section className="team-section">
-        <div className="container">
-          <h2 className="section-title">Our Team</h2>
-          <div className="team-grid">
-            <div className="team-member">
+        {/* About Us Section */}
+        <section className="about-section" id="about">
+          <div className="about-title">About Us</div>
+          <div className="about-cards container">
+            <div className="about-card">
               <Image
-                src="/assets/team1.jpg"
-                alt="Team Member 1"
-                width={200}
-                height={200}
+                src="/assets/about1.jpg"
+                alt="Expert Team"
+                width={80}
+                height={80}
               />
-              <h3>John Smith</h3>
-              <p>CEO & Founder</p>
-            </div>
-            <div className="team-member">
-              <Image
-                src="/assets/team2.jpg"
-                alt="Team Member 2"
-                width={200}
-                height={200}
-              />
-              <h3>Sarah Johnson</h3>
-              <p>Lead Developer</p>
-            </div>
-            <div className="team-member">
-              <Image
-                src="/assets/team3.jpg"
-                alt="Team Member 3"
-                width={200}
-                height={200}
-              />
-              <h3>Mike Davis</h3>
-              <p>UI/UX Designer</p>
-            </div>
-            <div className="team-member">
-              <Image
-                src="/assets/team4.jpg"
-                alt="Team Member 4"
-                width={200}
-                height={200}
-              />
-              <h3>Emily Wilson</h3>
-              <p>Project Manager</p>
-            </div>
-            <div className="team-member">
-              <Image
-                src="/assets/team5.jpg"
-                alt="Team Member 5"
-                width={200}
-                height={200}
-              />
-              <h3>David Brown</h3>
-              <p>Full Stack Developer</p>
-            </div>
-            <div className="team-member">
-              <Image
-                src="/assets/team6.jpg"
-                alt="Team Member 6"
-                width={200}
-                height={200}
-              />
-              <h3>Lisa Martinez</h3>
-              <p>Marketing Specialist</p>
-            </div>
-            <div className="team-member">
-              <Image
-                src="/assets/team7.jpg"
-                alt="Team Member 7"
-                width={200}
-                height={200}
-              />
-              <h3>Chris Anderson</h3>
-              <p>DevOps Engineer</p>
-            </div>
-            <div className="team-member">
-              <Image
-                src="/assets/team8.jpg"
-                alt="Team Member 8"
-                width={200}
-                height={200}
-              />
-              <h3>Anna Taylor</h3>
-              <p>Quality Assurance</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="footer">
-        <div className="container">
-          <div className="footer-content">
-            <div className="footer-column">
-              <div className="footer-logo">
-                <Image
-                  src="/assets/logo_placeholder.svg"
-                  alt="Ocean County Digital"
-                  width={48}
-                  height={48}
-                />
-                <span>Ocean County Digital</span>
-              </div>
+              <h3>Expert Team</h3>
               <p>
-                Your digital transformation partner. We build modern, scalable
-                web solutions that drive business growth and innovation.
+                Our team consists of experienced professionals dedicated to
+                delivering top-notch solutions.
               </p>
+              <a href="#" className="cta-btn-primary">
+                Learn More
+              </a>
             </div>
-            <div className="footer-column">
-              <h4>Quick Links</h4>
-              <ul>
-                <li>
-                  <a href="#home">Home</a>
-                </li>
-                <li>
-                  <a href="#about">About</a>
-                </li>
-                <li>
-                  <a href="#services">Services</a>
-                </li>
-                <li>
-                  <a href="#projects">Projects</a>
-                </li>
-                <li>
-                  <a href="#contact">Contact</a>
-                </li>
-              </ul>
+            <div className="about-card">
+              <Image
+                src="/assets/about2.jpg"
+                alt="Modern Solutions"
+                width={80}
+                height={80}
+              />
+              <h3>Modern Solutions</h3>
+              <p>
+                We use the latest technologies to ensure your business stays
+                ahead of the curve.
+              </p>
+              <a href="#" className="cta-btn-primary">
+                Learn More
+              </a>
             </div>
-            <div className="footer-column">
-              <h4>Contact Us</h4>
-              <div className="contact-info">
-                <p>
-                  <strong>Phone:</strong> (732) 555-0123
-                </p>
-                <p>
-                  <strong>Email:</strong> info@oceancountydigital.com
-                </p>
-              </div>
-            </div>
-            <div className="footer-column">
-              <h4>Get in Touch</h4>
-              <form className="newsletter-form">
-                <input type="email" placeholder="Your email address" />
-                <button type="submit">Send</button>
-              </form>
+            <div className="about-card">
+              <Image
+                src="/assets/about3.jpg"
+                alt="Customer Focus"
+                width={80}
+                height={80}
+              />
+              <h3>Customer Focus</h3>
+              <p>
+                Your satisfaction is our priority. We work closely with you to
+                achieve your goals.
+              </p>
+              <a href="#" className="cta-btn-primary">
+                Learn More
+              </a>
             </div>
           </div>
-        </div>
-      </footer>
+        </section>
+
+        {/* Contact Us Section */}
+        <section className="contact-section" id="contact">
+          <div className="container">
+            <h2 className="section-title">Contact Us</h2>
+            <form className="contact-form">
+              <div className="form-row">
+                <div className="form-group">
+                  <label htmlFor="name">Name *</label>
+                  <input type="text" id="name" name="name" required />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="email">Email *</label>
+                  <input type="email" id="email" name="email" required />
+                </div>
+              </div>
+              <div className="form-row">
+                <div className="form-group">
+                  <label htmlFor="company">Company</label>
+                  <input type="text" id="company" name="company" />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="phone">Phone Number *</label>
+                  <input type="tel" id="phone" name="phone" required />
+                </div>
+              </div>
+              <div className="form-group">
+                <label htmlFor="message">Message *</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows={6}
+                  required
+                ></textarea>
+              </div>
+              <button type="submit" className="cta-btn-primary">
+                Send Message
+              </button>
+            </form>
+          </div>
+        </section>
+
+        {/* Our Team Section */}
+        <section className="team-section">
+          <div className="container">
+            <h2 className="section-title">Our Team</h2>
+            <div className="team-grid">
+              <div className="team-member">
+                <Image
+                  src="/assets/team1.jpg"
+                  alt="Team Member 1"
+                  width={200}
+                  height={200}
+                />
+                <h3>John Smith</h3>
+                <p>CEO & Founder</p>
+              </div>
+              <div className="team-member">
+                <Image
+                  src="/assets/team2.jpg"
+                  alt="Team Member 2"
+                  width={200}
+                  height={200}
+                />
+                <h3>Sarah Johnson</h3>
+                <p>Lead Developer</p>
+              </div>
+              <div className="team-member">
+                <Image
+                  src="/assets/team3.jpg"
+                  alt="Team Member 3"
+                  width={200}
+                  height={200}
+                />
+                <h3>Mike Davis</h3>
+                <p>UI/UX Designer</p>
+              </div>
+              <div className="team-member">
+                <Image
+                  src="/assets/team4.jpg"
+                  alt="Team Member 4"
+                  width={200}
+                  height={200}
+                />
+                <h3>Emily Wilson</h3>
+                <p>Project Manager</p>
+              </div>
+              <div className="team-member">
+                <Image
+                  src="/assets/team5.jpg"
+                  alt="Team Member 5"
+                  width={200}
+                  height={200}
+                />
+                <h3>David Brown</h3>
+                <p>Full Stack Developer</p>
+              </div>
+              <div className="team-member">
+                <Image
+                  src="/assets/team6.jpg"
+                  alt="Team Member 6"
+                  width={200}
+                  height={200}
+                />
+                <h3>Lisa Martinez</h3>
+                <p>Marketing Specialist</p>
+              </div>
+              <div className="team-member">
+                <Image
+                  src="/assets/team7.jpg"
+                  alt="Team Member 7"
+                  width={200}
+                  height={200}
+                />
+                <h3>Chris Anderson</h3>
+                <p>DevOps Engineer</p>
+              </div>
+              <div className="team-member">
+                <Image
+                  src="/assets/team8.jpg"
+                  alt="Team Member 8"
+                  width={200}
+                  height={200}
+                />
+                <h3>Anna Taylor</h3>
+                <p>Quality Assurance</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Footer */}
+        <footer className="footer">
+          <div className="container">
+            <div className="footer-content">
+              <div className="footer-column">
+                <div className="footer-logo">
+                  <Image
+                    src="/assets/logo_placeholder.svg"
+                    alt="Ocean County Digital"
+                    width={48}
+                    height={48}
+                  />
+                  <span>Ocean County Digital</span>
+                </div>
+                <p>
+                  Your digital transformation partner. We build modern, scalable
+                  web solutions that drive business growth and innovation.
+                </p>
+              </div>
+              <div className="footer-column">
+                <h4>Quick Links</h4>
+                <ul>
+                  <li>
+                    <a href="#home">Home</a>
+                  </li>
+                  <li>
+                    <a href="#about">About</a>
+                  </li>
+                  <li>
+                    <a href="#services">Services</a>
+                  </li>
+                  <li>
+                    <a href="#projects">Projects</a>
+                  </li>
+                  <li>
+                    <a href="#contact">Contact</a>
+                  </li>
+                </ul>
+              </div>
+              <div className="footer-column">
+                <h4>Contact Us</h4>
+                <div className="contact-info">
+                  <p>
+                    <strong>Phone:</strong> (732) 555-0123
+                  </p>
+                  <p>
+                    <strong>Email:</strong> info@oceancountydigital.com
+                  </p>
+                </div>
+              </div>
+              <div className="footer-column">
+                <h4>Get in Touch</h4>
+                <form className="newsletter-form">
+                  <input type="email" placeholder="Your email address" />
+                  <button type="submit">Send</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </main>
     </>
   );
 }

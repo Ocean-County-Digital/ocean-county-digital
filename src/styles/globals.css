@@ -44,12 +44,61 @@ body {
   width: 100%;
   position: relative;
 }
-*:focus:not(.focus-visible) {
-  outline: #000 solid 2px;
+
+/* Accessibility Styles */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
-/* Optional: Customize .focus-visible */
+
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: var(--theme-color);
+  color: white;
+  padding: 8px;
+  text-decoration: none;
+  border-radius: 4px;
+  z-index: 1001;
+  font-weight: 600;
+  transition: top 0.3s;
+}
+
+.skip-link:focus {
+  top: 6px;
+}
+/* Focus Styles for Accessibility */
+*:focus {
+  outline: 2px solid var(--theme-color);
+  outline-offset: 2px;
+}
+
 .focus-visible {
-  outline: #000 solid 2px;
+  outline: 2px solid var(--theme-color);
+  outline-offset: 2px;
+}
+
+/* Enhanced focus for buttons */
+button:focus,
+.cta-btn-primary:focus {
+  outline: 2px solid var(--theme-color);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(62, 102, 243, 0.2);
+}
+
+/* Enhanced focus for links */
+a:focus {
+  outline: 2px solid var(--theme-color);
+  outline-offset: 2px;
+  background-color: rgba(62, 102, 243, 0.1);
 }
 
 .container {
@@ -112,6 +161,130 @@ body {
 }
 .sticky-navbar .nav-links a:hover {
   color: var(--theme-color);
+}
+
+/* Mobile Navigation */
+.mobile-menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--title-color);
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 300px;
+  height: 100vh;
+  background: var(--white-color);
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  transition: left 0.3s ease-in-out;
+  overflow-y: auto;
+}
+
+.mobile-menu.open {
+  left: 0;
+}
+
+.mobile-menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.mobile-menu-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--title-color);
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.mobile-nav-links {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0;
+}
+
+.mobile-nav-links a {
+  color: var(--title-color);
+  text-decoration: none;
+  font-size: 1rem;
+  text-transform: uppercase;
+  padding: 1rem 1.5rem;
+  font-weight: 500;
+  font-family: var(--font-family-roboto);
+  border-bottom: 1px solid #f0f0f0;
+  transition: all 0.2s;
+}
+
+.mobile-nav-links a:hover {
+  color: var(--theme-color);
+  background: var(--smoke-color);
+}
+
+.mobile-nav-links .cta-btn-primary {
+  margin: 1rem 1.5rem;
+  align-self: flex-start;
+}
+
+/* Enhanced accessibility for mobile menu */
+.mobile-menu-toggle:focus,
+.mobile-menu-close:focus {
+  outline: 2px solid var(--theme-color);
+  outline-offset: 2px;
+  background-color: rgba(62, 102, 243, 0.1);
+}
+
+.mobile-nav-links a:focus {
+  outline: 2px solid var(--theme-color);
+  outline-offset: -2px;
+  background-color: var(--theme-color);
+  color: white;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .mobile-menu {
+    border: 2px solid var(--title-color);
+  }
+  
+  .mobile-nav-links a {
+    border-bottom: 2px solid var(--title-color);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .mobile-menu {
+    transition: none;
+  }
+  
+  .skip-link {
+    transition: none;
+  }
+}
+
+.mobile-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+.desktop-nav {
+  display: flex;
 }
 
 /* Hero Banner */
@@ -413,8 +586,18 @@ body {
 }
 
 @media (max-width: 1200px) {
-  .sticky-navbar .cta-btn-primary {
+  .sticky-navbar .cta-btn-primary.desktop-nav {
     display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .desktop-nav {
+    display: none !important;
+  }
+  
+  .mobile-menu-toggle {
+    display: block;
   }
 }
 
