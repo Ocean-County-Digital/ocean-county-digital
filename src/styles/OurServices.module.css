@@ -13,7 +13,7 @@
 
 .servicesCarousel {
   position: relative;
-  margin-top: var(--space-lg);
+  margin-top: var(--space-md);
   width: 100%;
   max-width: 100%;
 }
@@ -171,27 +171,27 @@
 
 @media (max-width: 768px) {
   .carouselWrapper {
-    flex-direction: column;
-    gap: var(--space-md);
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
   }
 
   .servicesButtonPrev,
   .servicesButtonNext {
     position: static;
-    order: 2;
+    flex-shrink: 0;
   }
 
   .swiperContainer {
-    order: 1;
+    flex: 1;
   }
 
   .servicesSection :global(.services-pagination) {
-    order: 3;
-    margin-top: var(--space-md);
+    margin-top: var(--space-lg);
   }
 
   .serviceCard {
-    height: 400px;
+    height: 345px;
     padding: var(--space-md);
   }
 
@@ -208,7 +208,7 @@
 
 @media (max-width: 480px) {
   .serviceCard {
-    height: 380px;
+    height: 325px;
     padding: var(--space-md);
   }
 
