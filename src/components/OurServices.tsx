@@ -184,24 +184,33 @@ export default function OurServices() {
                 role="region"
                 aria-label="Our services carousel"
                 a11y={{
-                  prevSlideMessage: 'Previous slide',
-                  nextSlideMessage: 'Next slide',
-                  firstSlideMessage: 'This is the first slide',
-                  lastSlideMessage: 'This is the last slide',
-                  paginationBulletMessage: 'Go to slide {{index}}',
+                  prevSlideMessage: "Previous slide",
+                  nextSlideMessage: "Next slide",
+                  firstSlideMessage: "This is the first slide",
+                  lastSlideMessage: "This is the last slide",
+                  paginationBulletMessage: "Go to slide {{index}}",
                 }}
               >
                 {services.map((service) => (
                   <SwiperSlide key={service.id}>
-                    <div className={styles.serviceCard} role="group" aria-labelledby={`service-title-${service.id}`}>
+                    <div
+                      className={styles.serviceCard}
+                      role="group"
+                      aria-labelledby={`service-title-${service.id}`}
+                    >
                       <div className={styles.serviceIcon} aria-hidden="true">
                         {service.icon}
                       </div>
-                      <h3 id={`service-title-${service.id}`} className={styles.serviceTitle}>{service.title}</h3>
-                      {/* <p className={styles.serviceDescription}>
+                      <h3
+                        id={`service-title-${service.id}`}
+                        className={styles.serviceTitle}
+                      >
+                        {service.title}
+                      </h3>
+                      <p className={styles.serviceDescription}>
                         {service.description}
-                      </p> */}
-                      <button 
+                      </p>
+                      <button
                         className={`cta-btn-primary ${styles.serviceCta}`}
                         aria-describedby={`service-title-${service.id}`}
                       >
@@ -237,7 +246,11 @@ export default function OurServices() {
             </button>
           </div>
 
-          <div className="services-pagination" role="group" aria-label="Carousel pagination"></div>
+          <div
+            className="services-pagination"
+            role="group"
+            aria-label="Carousel pagination"
+          ></div>
         </div>
       </div>
     </section>
