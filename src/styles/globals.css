@@ -429,3 +429,18 @@ a:focus {
     flex-direction: column;
   }
 }
+
+/* Our Services Carousel Styles */
+.services-pagination .swiper-pagination-bullet {
+  width: 12px;
+  height: 12px;
+  background: var(--gray-color);
+  border-radius: 50%;
+  opacity: 1;
+  transition: all 0.3s ease;
+}
+
+.services-pagination .swiper-pagination-bullet-active {
+  background: var(--theme-color);
+  transform: scale(1.2);
+}

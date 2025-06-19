@@ -1,0 +1,226 @@
+.servicesSection {
+  padding: var(--space-xl) 0;
+  background: var(--white-color);
+  width: 100%;
+  overflow: hidden;
+}
+
+.servicesContainer {
+  display: block !important;
+  justify-content: initial !important;
+  align-items: initial !important;
+}
+
+.servicesCarousel {
+  position: relative;
+  margin-top: var(--space-lg);
+  width: 100%;
+  max-width: 100%;
+}
+
+.carouselWrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  position: relative;
+}
+
+.swiperContainer {
+  flex: 1;
+  overflow: hidden;
+}
+
+.serviceCard {
+  background: var(--white-color);
+  border-radius: 12px;
+  padding: var(--space-lg);
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--smoke-color);
+  transition: all 0.3s ease;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.serviceCard:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 30px rgba(62, 102, 243, 0.15);
+  border-color: var(--theme-color);
+}
+
+.serviceIcon {
+  font-size: 3rem;
+  color: var(--theme-color);
+  margin-bottom: var(--space-md);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: 80px;
+  background: var(--smoke-color3);
+  border-radius: 50%;
+  margin: 0 auto var(--space-md);
+  transition: all 0.3s ease;
+}
+
+.serviceCard:hover .serviceIcon {
+  background: var(--theme-color);
+  color: var(--white-color);
+  transform: scale(1.1);
+}
+
+.serviceTitle {
+  font-family: var(--font-family-barlow);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--title-color);
+  margin-bottom: var(--space-md);
+  line-height: 1.3;
+}
+
+.serviceDescription {
+  color: var(--body-color);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: var(--space-lg);
+  flex-grow: 1;
+}
+
+.serviceCta {
+  margin-top: auto;
+  font-size: 0.9rem;
+  padding: 0.6rem 2rem;
+  transition: all 0.3s ease;
+}
+
+.serviceCta:hover {
+  background: #2546a8;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(62, 102, 243, 0.3);
+}
+
+.servicesButtonPrev,
+.servicesButtonNext {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid var(--theme-color);
+  background: var(--white-color);
+  color: var(--theme-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.servicesButtonPrev:hover,
+.servicesButtonNext:hover {
+  background: var(--theme-color);
+  color: var(--white-color);
+  transform: scale(1.05);
+}
+
+.servicesButtonPrev:focus,
+.servicesButtonNext:focus {
+  outline: 2px solid var(--theme-color);
+  outline-offset: 2px;
+}
+
+.servicesButtonPrev:disabled,
+.servicesButtonNext:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.servicesButtonPrev:disabled:hover,
+.servicesButtonNext:disabled:hover {
+  background: var(--white-color);
+  color: var(--theme-color);
+  transform: none;
+}
+
+.servicesSwiper {
+  width: 100%;
+  margin: 0;
+}
+
+/* Pagination positioned below carousel */
+.servicesSection :global(.services-pagination) {
+  display: flex !important;
+  justify-content: center;
+  gap: var(--space-sm);
+  margin-top: var(--space-lg);
+  padding: 0;
+}
+
+@media (max-width: 768px) {
+  .carouselWrapper {
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .servicesButtonPrev,
+  .servicesButtonNext {
+    position: static;
+    order: 2;
+  }
+
+  .swiperContainer {
+    order: 1;
+  }
+
+  .servicesSection :global(.services-pagination) {
+    order: 3;
+    margin-top: var(--space-md);
+  }
+
+  .serviceCard {
+    height: 280px;
+    padding: var(--space-md);
+  }
+
+  .serviceIcon {
+    font-size: 2.5rem;
+    width: 70px;
+    height: 70px;
+  }
+
+  .serviceTitle {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .serviceCard {
+    height: 250px;
+    padding: var(--space-md);
+  }
+
+  .serviceIcon {
+    font-size: 2rem;
+    width: 60px;
+    height: 60px;
+  }
+
+  .serviceTitle {
+    font-size: 1.2rem;
+  }
+
+  .serviceCta {
+    padding: 0.5rem 1.5rem;
+    font-size: 0.85rem;
+  }
+
+  .servicesButtonPrev,
+  .servicesButtonNext {
+    width: 40px;
+    height: 40px;
+  }
+}
+

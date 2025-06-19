@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Navigation from "@/components/Navigation";
+import OurServices from "@/components/OurServices";
 
 export default function Home() {
   return (
@@ -83,6 +84,9 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        {/* Our Services Section */}
+        <OurServices />
 
         {/* Contact Us Section */}
         <section className="contact-section" id="contact">
